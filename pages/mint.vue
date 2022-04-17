@@ -9,13 +9,14 @@
     </div>
 
     <div class="mb-4">
-      무료일 경우 필요 없음에도 과하게 민팅하시는 현상이 있을 수 있어 5 KLAY의 비용을 받습니다.<br />
+      무료일 경우 필요 없음에도 과하게 민팅하는 현상이 있을 수 있어 5 KLAY의 비용을 받습니다.<br />
       배경, 등, 배, 눈의 색상 선택 후 민팅할 수 있습니다.<br />
       선택하신 색상 조합이 이미 존재할 경우 실패합니다.
     </div>
 
     <ConnectWallet v-if="!connected" />
     <div v-else class="mb-4 mt-5">
+      <div class="mb-3">{{dna.length}}/1000</div>
       <div>
         <input type="color" name="backgound" v-model="back">
         <label for="backgound" class="mr-5">배경</label>
@@ -64,6 +65,10 @@ export default {
     async mint() {
       if(this.dna.indexOf(this.back+this.eye+this.body+this.belly) > -1) {
         alert('존재하는 색상 조합입니다. 색상을 바꿔주세요.');
+        return
+      }
+      if(this.dna.length >= 1000) {
+        alert('바다에 남은 고래가 없습니다...');
         return
       }
 
