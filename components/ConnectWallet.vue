@@ -22,10 +22,7 @@ export default {
       await klaytn.enable()
       
       setTimeout(() => {
-        const myContract = new caver.klay.Contract(
-          ABI,
-          ADDR
-        );
+        const myContract = new caver.klay.Contract(ABI, ADDR);
 
         myContract.methods.getDna().call().then(res => {
           if(res) {
@@ -35,15 +32,21 @@ export default {
               alert('지갑이 변경되었습니다')
               location.reload();
             });
+            
           } else {
             alert('다시 시도해주세요');
           }
+        });
+
+        myContract.methods.getWhales().call().then(res => {
+          this.setWhales(res);
         });
       }, 500);
     },
 
     ...mapMutations({
-      connect: 'dashboard/connect'
+      connect: 'dashboard/connect',
+      setWhales: 'dashboard/setWhales'
     })
   }
 }
