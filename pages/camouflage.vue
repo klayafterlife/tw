@@ -152,6 +152,12 @@ export default {
           alert('보호색이 변경되었습니다!');
           this.addDna(this.back+this.eye+this.body+this.belly);
           this.changeColor([this.idx, this.back, this.eye, this.body, this.belly]);
+
+          try {
+            axios.get(`https://api.klu.bs/v2/pfp/0x2089CFC532195E9568608fD0E8aD7Ab5e4cfDc91/${id}/metadata/cache`);
+          } catch {
+            console.log('metadata update fail');
+          }
         });
       }, 500);
     },
