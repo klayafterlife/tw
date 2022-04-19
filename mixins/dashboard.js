@@ -4,7 +4,8 @@ export default {
   computed: {
     ...mapGetters({
       connected: 'dashboard/connected',
-      dna: 'dashboard/dna'
+      dna: 'dashboard/dna',
+      whales: 'dashboard/whales'
     })
   },
 
