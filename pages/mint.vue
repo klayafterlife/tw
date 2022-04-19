@@ -16,7 +16,7 @@
 
     <ConnectWallet v-if="!connected" />
     <div v-else class="mb-4 mt-5">
-      <div class="mb-3">{{dna.length}}/1000</div>
+      <div class="mb-3">{{ cnt }}/1000</div>
       <div>
         <input type="color" name="backgound" v-model="back">
         <label for="backgound" class="mr-5">배경</label>
@@ -43,7 +43,7 @@
 <script>
 import dashboard from '@/mixins/dashboard.js'
 import ConnectWallet from '@/components/ConnectWallet.vue';
-import { ABI, ADDR } from '@/plugin/mint.js';
+import { ABI, ADDR } from '@/plugin/util.js';
 
 export default {
   mixins: [ dashboard ],
@@ -57,7 +57,22 @@ export default {
       back: '#00CCFF',
       body: '#000000',
       belly: '#FFFFFF',
-      eye: '#FFFFFF'
+      eye: '#FFFFFF',
+      cnt: 0
+    }
+  },
+
+  watch: {
+    connected(val) {
+      if(val) {
+        this.getCnt();
+      }
+    }
+  },
+
+  mounted() {
+    if(this.connected) {
+      this.getCnt();
     }
   },
 
@@ -67,7 +82,7 @@ export default {
         alert('존재하는 색상 조합입니다. 색상을 바꿔주세요.');
         return
       }
-      if(this.dna.length >= 1000) {
+      if(this.cnt >= 1000) {
         alert('바다에 남은 고래가 없습니다...');
         return
       }
@@ -96,8 +111,18 @@ export default {
         .on('receipt', () => {
           alert('작은 고래를 얻었습니다!');
           this.addDna(this.back+this.eye+this.body+this.belly);
+
+          this.cnt += 1;
         });
       }, 500);
+    },
+
+    getCnt() {
+      const myContract = new caver.klay.Contract(ABI, ADDR);
+
+      myContract.methods.totalSupply().call().then(res => {
+        this.cnt = res;
+      });
     }
   },
 }
