@@ -8,30 +8,23 @@
       재미와 수집으로만 접근해주세요.<br />
     </div>
 
-    <div class="mb-4">
-      무료일 경우 필요 없음에도 과하게 민팅하는 현상이 있을 수 있어 5 KLAY의 비용을 받습니다.<br />
+    <div class="mb-5">
+      과민팅 방지를 위해 5 KLAY의 비용을 받습니다.<br />
       배경, 등, 배, 눈의 색상 선택 후 민팅할 수 있습니다.<br />
-      선택하신 색상 조합이 이미 존재할 경우 실패합니다.
+      선택하신 색상 조합이 이미 존재할 경우 실패합니다.<br />
+      같은 색 조합의 고래는 오직 하나만 존재합니다.
     </div>
 
     <ConnectWallet v-if="!connected" />
-    <div v-else class="mb-4 mt-5">
-      <div class="mb-3">{{ cnt }}/1000</div>
-      <div>
-        <input type="color" name="backgound" v-model="back">
-        <label for="backgound" class="mr-5">배경</label>
-        
-        <input type="color" name="eye" v-model="eye">
-        <label for="eye">눈</label>
-      </div>
-
-      <div>
-        <input type="color" name="body" v-model="body">
-        <label for="body" class="mr-5">몸통</label>
-        
-        <input type="color" name="belly" v-model="belly">
-        <label for="belly">배</label>
-      </div>
+    <div v-else class="m-5">
+      <div class="mb-4">포획된 고래: {{ cnt }}/1000</div>
+      
+      <whale-preview
+        :back.sync="back"
+        :eye.sync="eye"
+        :body.sync="body"
+        :belly.sync="belly"
+      />
 
       <div class="mt-5">
         <a class="link" @click="mint">포획</a>
@@ -43,13 +36,15 @@
 <script>
 import dashboard from '@/mixins/dashboard.js'
 import ConnectWallet from '@/components/ConnectWallet.vue';
+import WhalePreview from '@/components/WhalePreview.vue';
 import { ABI, ADDR } from '@/plugin/util.js';
 
 export default {
   mixins: [ dashboard ],
 
   components: {
-    ConnectWallet
+    ConnectWallet,
+    WhalePreview
   },
 
   data() {
