@@ -19,7 +19,7 @@ export const getters = {
 export const mutations = {
   connect(state, dna) {
     state.connected = true;
-    state.dna = dna;
+    state.dna = dna.map(d => d.toUpperCase());
   },
 
   addDna(state, dna) {
