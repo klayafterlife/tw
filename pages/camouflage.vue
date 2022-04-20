@@ -29,32 +29,13 @@
           </div>
         </div>
 
-        <div v-if="whale" class="row">
-          <div class="col preview" :style="{ 'background': back }">
-            <img :src="bodyImg" width="100%" height="100%" style="fill: red;">
-            <img :src="bellyImg" width="100%" height="100%">
-            <img :src="eyeImg" width="100%" height="100%">
-          </div>
-
-          <div class="col color-box">
-            <div>
-              <input type="color" name="backgound" v-model="back">
-              <label for="backgound">배경</label>
-            </div>
-            <div>
-              <input type="color" name="eye" v-model="eye">
-              <label for="eye">눈</label>
-            </div>
-            <div>
-              <input type="color" name="body" v-model="body">
-              <label for="body">몸통</label>
-            </div>
-            <div>
-              <input type="color" name="belly" v-model="belly">
-              <label for="belly">배</label>
-            </div>
-          </div>
-        </div>
+        <whale-preview 
+          v-if="whale"
+          :back.sync="back"
+          :eye.sync="eye"
+          :body.sync="body"
+          :belly.sync="belly"
+        />
 
         <div v-if="whale" class="mt-5">
           <a class="link" @click="colorChange">보호색 적용</a>
@@ -71,13 +52,15 @@
 import { mapMutations } from 'vuex';
 import dashboard from '@/mixins/dashboard.js'
 import ConnectWallet from '@/components/ConnectWallet.vue';
+import WhalePreview from '@/components/WhalePreview.vue';
 import { ABI, ADDR } from '@/plugin/util.js';
 
 export default {
   mixins: [ dashboard ],
 
   components: {
-    ConnectWallet
+    ConnectWallet,
+    WhalePreview
   },
 
   data() {
@@ -91,20 +74,6 @@ export default {
     }
   },
 
-  computed: {
-    bodyImg() {
-      return 'data:image/svg+xml;base64,' + btoa(`<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><path fill="${this.body}" d="M200 250h150v50H200zM150 300h250v50H150zM550 300h50v50h-50zM650 300h50v50h-50zM100 350h350v50H100zM600 350h50v100h-50zM200 400h300v50H200zM550 400h50v50h-50zM250 450h400v50H250zM300 500h300v50H300zM350 550h50v100h-50zM400 550h50v150h-50z"/></svg>`);
-    },
-
-    eyeImg() {
-      return 'data:image/svg+xml;base64,' + btoa(`<svg version="1.1" width="800" height="800" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="250" y="350" width="50" height="50" fill="${this.eye}" /></svg>`);
-    },
-
-    bellyImg() {
-      return 'data:image/svg+xml;base64,' + btoa(`<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><path fill="${this.belly}" d="M100 400h100v50H100zM150 450h100v50H150zM200 500h100v50H200zM250 550h100v50H250zM450 550h100v50H450z"/></svg>`);
-    }
-  },
-
   methods: {
     findWhaleId(w) {
       return w.name.split(' ')[2];
@@ -113,10 +82,10 @@ export default {
     selectWhale(w, i) {
       this.idx = i;
       this.whale = w;
-      this.back = w.attributes[0].value;
-      this.eye = w.attributes[2].value;
-      this.body = w.attributes[4].value;
-      this.belly = w.attributes[5].value;
+      this.back = w.attributes[0].value.toUpperCase();
+      this.eye = w.attributes[2].value.toUpperCase();
+      this.body = w.attributes[4].value.toUpperCase();
+      this.belly = w.attributes[5].value.toUpperCase();
     },
 
     async colorChange() {
