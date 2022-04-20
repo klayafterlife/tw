@@ -1,5 +1,7 @@
 <template>
   <div id="header">
+    <a class="col-4 link" @click="goToPage('/')">메인</a>
+    <a class="col-4 link" @click="goToPage('/mint')">포획</a>
     <a class="col-4 link" @click="goToPage('/camouflage')">보호색</a>
     <a class="col-4 link disable" @click="goToPage('/')">낚시</a>
 
