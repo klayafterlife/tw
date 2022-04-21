@@ -35,12 +35,11 @@
           :eye.sync="eye"
           :body.sync="body"
           :belly.sync="belly"
+          btn-text="보호색 적용"
+          @confirm="colorChange"
         />
-
-        <div v-if="whale" class="mt-5">
-          <a class="link" @click="colorChange">보호색 적용</a>
-        </div>
       </div>
+
       <div v-else>
         작은 고래가 다른 지갑에서만 헤엄치고 있습니다.
       </div>

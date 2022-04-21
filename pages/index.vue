@@ -13,8 +13,6 @@
       작은 고래는 큰 고래가 될 모두를 응원하는 프로젝트입니다.
     </div>
 
-    <a class="link" @click="$router.push('/mint')">고래 포획</a>
-
     <div class="mb-2 mt-5">
       소박한 로드맵
     </div>

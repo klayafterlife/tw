@@ -24,11 +24,9 @@
         :eye.sync="eye"
         :body.sync="body"
         :belly.sync="belly"
+        btn-text="포획"
+        @confirm="mint"
       />
-
-      <div class="mt-5">
-        <a class="link" @click="mint">포획</a>
-      </div>
     </div>
   </div>
 </template>

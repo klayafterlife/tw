@@ -1,28 +1,35 @@
 <template>
-  <div class="row">
-    <div class="col preview" :style="{ 'background': back }">
-      <img :src="bodyImg" width="100%" height="100%" style="fill: red;">
-      <img :src="bellyImg" width="100%" height="100%">
-      <img :src="eyeImg" width="100%" height="100%">
+  <div>
+    <div class="row">
+      <div class="col preview" :style="{ 'background': back }">
+        <img :src="bodyImg" width="100%" height="100%" style="fill: red;">
+        <img :src="bellyImg" width="100%" height="100%">
+        <img :src="eyeImg" width="100%" height="100%">
+      </div>
+
+      <div class="col color-box">
+        <div>
+          <input type="color" name="backgound" v-model="backModel">
+          <label for="backgound">배경</label>
+        </div>
+        <div>
+          <input type="color" name="eye" v-model="eyeModel">
+          <label for="eye">눈</label>
+        </div>
+        <div>
+          <input type="color" name="body" v-model="bodyModel">
+          <label for="body">몸통</label>
+        </div>
+        <div>
+          <input type="color" name="belly" v-model="bellyModel">
+          <label for="belly">배</label>
+        </div>
+      </div>
     </div>
 
-    <div class="col color-box">
-      <div>
-        <input type="color" name="backgound" v-model="backModel">
-        <label for="backgound">배경</label>
-      </div>
-      <div>
-        <input type="color" name="eye" v-model="eyeModel">
-        <label for="eye">눈</label>
-      </div>
-      <div>
-        <input type="color" name="body" v-model="bodyModel">
-        <label for="body">몸통</label>
-      </div>
-      <div>
-        <input type="color" name="belly" v-model="bellyModel">
-        <label for="belly">배</label>
-      </div>
+    <div class="mt-5 row">
+      <a class="col link" @click="randomBtn">랜덤 색상</a>
+      <a class="col link" @click="$emit('confirm')">{{ btnText }}</a>
     </div>
   </div>
 </template>
@@ -43,6 +50,10 @@ export default {
       required: true
     },
     belly: {
+      type: String,
+      required: true
+    },
+    btnText: {
       type: String,
       required: true
     }
@@ -79,6 +90,25 @@ export default {
 
     bellyImg() {
       return 'data:image/svg+xml;base64,' + btoa(`<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><path fill="${this.belly}" d="M100 400h100v50H100zM150 450h100v50H150zM200 500h100v50H200zM250 550h100v50H250zM450 550h100v50H450z"/></svg>`);
+    }
+  },
+
+  mounted() {
+    if(this.btnText == '포획') {
+      this.randomBtn();
+    }
+  },
+
+  methods: {
+    randomColor() {
+      return "#" + Math.round(Math.random() * 0xffffff).toString(16).toUpperCase();
+    },
+
+    randomBtn() {
+      this.$emit('update:back', this.randomColor());
+      this.$emit('update:eye', this.randomColor());
+      this.$emit('update:body', this.randomColor());
+      this.$emit('update:belly', this.randomColor());
     }
   }
 }
