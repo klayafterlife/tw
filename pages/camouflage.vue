@@ -12,7 +12,8 @@
     </div>
 
     <div class="mb-5">
-      초기 홀더 혜택 및 예쁜 고래 콘테스트 참여 독려를 위해 한시적으로 보호색 변경 기능이 추가 비용 없이 제공됩니다.
+      보호색 변경에는 5KLAY가 소모됩니다.<br />
+      모금된 금액은 추후 작은 고래의 생태계 조성에 사용됩니다.
     </div>
 
     <ConnectWallet v-if="!connected" />
@@ -108,6 +109,7 @@ export default {
           this.belly
         ).send({
           from : klaytn.selectedAddress,
+          value: caver.utils.toPeb('5', 'KLAY'),
           gas: 1000000
         })
         .on('error', err => {
