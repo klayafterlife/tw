@@ -1,17 +1,14 @@
 <template>
   <div class="container">
-    <h1 class="mb-5 mt-5">Mint</h1>
+    <h1 class="mb-5 mt-5 pb-4">Mint</h1>
 
     <div class="mb-4">
-      작은 고래는 토이프로젝트입니다.<br />
-      보호색 및 낚시 기능 추가 외에는 로드맵이 없습니다.<br />
-      재미와 수집으로만 접근해주세요.<br />
+      작은 고래를 포획하기 위해서는 5 KLAY가 필요합니다.<br />
+      배경 등 배 눈 색상을 선택하거나 랜덤 조합이 가능합니다.
     </div>
 
     <div class="mb-5">
-      과민팅 방지를 위해 5 KLAY의 비용을 받습니다.<br />
-      배경, 등, 배, 눈의 색상 선택 후 민팅할 수 있습니다.<br />
-      선택하신 색상 조합이 이미 존재할 경우 실패합니다.<br />
+      선택하신 색상 조합이 이미 존재할 경우 포획할 수 없습니다.<br />
       같은 색 조합의 고래는 오직 하나만 존재합니다.
     </div>
 
@@ -35,7 +32,7 @@
 import dashboard from '@/mixins/dashboard.js'
 import ConnectWallet from '@/components/ConnectWallet.vue';
 import WhalePreview from '@/components/WhalePreview.vue';
-import { ABI, ADDR } from '@/plugin/util.js';
+import { ABI, ADDR } from '@/plugin/mint.js';
 
 export default {
   mixins: [ dashboard ],
