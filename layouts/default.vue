@@ -59,6 +59,7 @@ body {
   padding: 2.5rem;
   min-height: 30vh;
   max-width: 650px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .link {
