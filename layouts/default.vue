@@ -32,16 +32,21 @@ export default {
     src: url('/neodgm.ttf') format('truetype');
 }
 
+body {
+  overflow-x: hidden;
+}
+
 #container {
   font-family: 'neo';
   width: 100vw;
   min-height: 100vh;
-  background-color: black;
+  background-image: url('/img/water.png');
   color: white;
   display: flex;
   justify-content: center;
   text-align: center;
   font-size: 1.2rem;
+  text-shadow: 2px 2px 2px black;
 }
 
 .container {
