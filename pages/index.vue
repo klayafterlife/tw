@@ -16,8 +16,8 @@
       로드맵
     </div>
     <div class="mb-5">
-      <del>보호색 - 고래 NFT를 원하는 색상으로 변경</del><br />
-      낚시 - 고래 NFT에 장식 추가<br />
+      <del>보호색 - 고래를 원하는 색상으로 변경</del><br />
+      탐험 - 고래에 장식 추가<br />
     </div>
   </div>
 </template>
