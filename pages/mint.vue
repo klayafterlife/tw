@@ -3,18 +3,22 @@
     <h1 class="mb-5 mt-5 pb-4">Mint</h1>
 
     <div class="mb-4">
-      작은 고래를 포획하기 위해서는 5 KLAY가 필요합니다.<br />
+      작은 고래를 포획하기 위해서는 5 KLU가 필요합니다.<br />
       배경 등 배 눈 색상을 선택하거나 랜덤 조합이 가능합니다.
     </div>
 
-    <div class="mb-5">
+    <div class="mb-4">
       선택하신 색상 조합이 이미 존재할 경우 포획할 수 없습니다.<br />
       같은 색 조합의 고래는 오직 하나만 존재합니다.
     </div>
 
-    <ConnectWallet v-if="!connected" />
+    <div class="mb-5">
+      고래는 천 마리만 존재하며, 6월 말까지만 포획이 가능합니다.
+    </div>
+
+    <ConnectWallet v-if="!isKluApproval" />
     <div v-else class="m-5">
-      <div class="mb-4">포획된 고래: {{ cnt }}/1000</div>
+      <div class="mb-4">포획된 고래: {{ whaleCnt }}/1000</div>
       
       <whale-preview
         :back.sync="back"
@@ -32,7 +36,7 @@
 import dashboard from '@/mixins/dashboard.js'
 import ConnectWallet from '@/components/ConnectWallet.vue';
 import WhalePreview from '@/components/WhalePreview.vue';
-import { ABI, ADDR } from '@/plugin/mint.js';
+import { ABI, ADDR } from '@/plugin/seaKlu.js';
 
 export default {
   mixins: [ dashboard ],
@@ -47,22 +51,7 @@ export default {
       back: '#00CCFF',
       body: '#000000',
       belly: '#FFFFFF',
-      eye: '#FFFFFF',
-      cnt: 0
-    }
-  },
-
-  watch: {
-    connected(val) {
-      if(val) {
-        this.getCnt();
-      }
-    }
-  },
-
-  mounted() {
-    if(this.connected) {
-      this.getCnt();
+      eye: '#FFFFFF'
     }
   },
 
@@ -72,7 +61,7 @@ export default {
         alert('존재하는 색상 조합입니다. 색상을 바꿔주세요.');
         return
       }
-      if(this.cnt >= 1000) {
+      if(this.whaleCnt >= 1000) {
         alert('바다에 남은 고래가 없습니다...');
         return
       }
@@ -82,37 +71,21 @@ export default {
       setTimeout(() => {
         const myContract = new caver.klay.Contract(ABI, ADDR);
 
-        myContract.methods.mint(
+        myContract.methods.Mint(
           this.back,
           this.eye,
           this.body,
           this.belly
         ).send({
           from : klaytn.selectedAddress,
-          value: caver.utils.toPeb('5', 'KLAY'),
           gas: 1500000
         })
-        .on('error', err => {
-          if(!`${err}`.includes('User denied transaction signature')) {
-            alert('에러가 발생했습니다');
-            console.log(err);
-          };
-        })
-        .on('receipt', () => {
+        .then(() => {
           alert('작은 고래를 얻었습니다!');
           this.addDna(this.back+this.eye+this.body+this.belly);
-
-          this.cnt += 1;
+          this.addWhale();
         });
       }, 500);
-    },
-
-    getCnt() {
-      const myContract = new caver.klay.Contract(ABI, ADDR);
-
-      myContract.methods.totalSupply().call().then(res => {
-        this.cnt = res;
-      });
     }
   },
 }

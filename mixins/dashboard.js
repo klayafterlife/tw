@@ -3,15 +3,17 @@ import { mapGetters, mapMutations } from 'vuex';
 export default {
   computed: {
     ...mapGetters({
-      connected: 'dashboard/connected',
+      isKluApproval: 'dashboard/isKluApproval',
       dna: 'dashboard/dna',
-      whales: 'dashboard/whales'
+      whales: 'dashboard/whales',
+      whaleCnt: 'dashboard/whaleCnt'
     })
   },
 
   methods: {
     ...mapMutations({
-      addDna: 'dashboard/addDna'
+      addDna: 'dashboard/addDna',
+      addWhale: 'dashboard/addWhale'
     })
   }
 }
