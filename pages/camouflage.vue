@@ -138,30 +138,4 @@ export default {
   border-radius: 10px;
   padding: 16px;
 }
-
-label {
-  width: 60px;
-}
-
-.color-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-start;
-}
-
-.color-box div {
-  margin-left: 10px;
-  margin-bottom: 0;
-}
-
-.preview {
-  padding-top: 50%;
-}
-
-.preview img {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 </style>

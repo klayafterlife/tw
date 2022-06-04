@@ -115,12 +115,6 @@ export default {
 </script>
 
 <style scoped>
-.my-whale {
-  border: 2px solid;
-  border-radius: 10px;
-  padding: 16px;
-}
-
 label {
   width: 60px;
 }
