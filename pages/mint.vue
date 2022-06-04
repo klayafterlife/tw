@@ -57,6 +57,10 @@ export default {
 
   methods: {
     async mint() {
+      if(!this.kluCheck(5)) {
+        return;
+      }
+
       if(this.dna.indexOf(this.back+this.eye+this.body+this.belly) > -1) {
         alert('존재하는 색상 조합입니다. 색상을 바꿔주세요.');
         return
@@ -84,7 +88,9 @@ export default {
           alert('작은 고래를 얻었습니다!');
           this.addDna(this.back+this.eye+this.body+this.belly);
           this.addWhale();
-        });
+        }).catch(() => {
+          alert('다시 시도해주세요')
+        })
       }, 500);
     }
   },

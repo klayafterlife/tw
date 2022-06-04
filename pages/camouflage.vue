@@ -12,11 +12,11 @@
     </div>
 
     <div class="mb-5">
-      보호색 변경에는 5KLAY가 소모됩니다.<br />
-      해당 금액은 작은 고래의 생태계 조성에 사용됩니다.
+      보호색 변경에는 5KLU가 필요합니다.<br />
+      모금된 KLU는 전량 작은 고래의 생태계를 위해 사용됩니다.
     </div>
 
-    <ConnectWallet v-if="!connected" />
+    <ConnectWallet v-if="!isKluApproval" />
     <div v-else class="mb-4 mt-5">
       <div v-if="whales.length > 0" class="m-5">
         <div class="row my-whale mb-5">
@@ -53,7 +53,7 @@ import { mapMutations } from 'vuex';
 import dashboard from '@/mixins/dashboard.js'
 import ConnectWallet from '@/components/ConnectWallet.vue';
 import WhalePreview from '@/components/WhalePreview.vue';
-import { ABI, ADDR } from '@/plugin/util.js';
+import { ABI, ADDR } from '@/plugin/seaKlu.js';
 
 export default {
   mixins: [ dashboard ],
@@ -89,6 +89,10 @@ export default {
     },
 
     async colorChange() {
+      if(!this.kluCheck(5)) {
+        return;
+      }
+
       if(this.dna.indexOf(this.back+this.eye+this.body+this.belly) > -1) {
         alert('존재하는 색상 조합입니다. 색상을 바꿔주세요.');
         return
@@ -101,7 +105,7 @@ export default {
       setTimeout(() => {
         const myContract = new caver.klay.Contract(ABI, ADDR);
 
-        myContract.methods.change(
+        myContract.methods.ColorChange(
           id,
           this.back,
           this.eye,
@@ -109,25 +113,14 @@ export default {
           this.belly
         ).send({
           from : klaytn.selectedAddress,
-          value: caver.utils.toPeb('5', 'KLAY'),
           gas: 1000000
         })
-        .on('error', err => {
-          if(!`${err}`.includes('User denied transaction signature')) {
-            alert('에러가 발생했습니다');
-            console.log(err);
-          };
-        })
-        .on('receipt', () => {
+        .then(() => {
           alert('보호색이 변경되었습니다!');
           this.addDna(this.back+this.eye+this.body+this.belly);
           this.changeColor([this.idx, this.back, this.eye, this.body, this.belly]);
-
-          try {
-            axios.get(`https://api.klu.bs/v2/pfp/0x2089CFC532195E9568608fD0E8aD7Ab5e4cfDc91/${id}/metadata/cache`);
-          } catch {
-            console.log('metadata update fail');
-          }
+        }).catch(() => {
+          alert('다시 시도해주세요')
         });
       }, 500);
     },
