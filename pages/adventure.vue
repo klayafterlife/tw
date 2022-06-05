@@ -122,11 +122,7 @@ export default {
           alert('다시 시도해주세요')
         });
       }, 500);
-    },
-
-    ...mapMutations({
-      connect: 'dashboard/connect'
-    })
+    }
   },
 }
 </script>

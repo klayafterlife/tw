@@ -24,7 +24,8 @@ export default {
 
     ...mapMutations({
       addDna: 'dashboard/addDna',
-      addWhale: 'dashboard/addWhale'
+      addWhale: 'dashboard/addWhale',
+      connect: 'dashboard/connect'
     })
   }
 }

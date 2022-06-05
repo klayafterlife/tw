@@ -86,8 +86,13 @@ export default {
         })
         .then(() => {
           alert('작은 고래를 얻었습니다!');
-          this.addDna(this.back+this.eye+this.body+this.belly);
-          this.addWhale();
+          
+          myContract.methods.Dashboard().call().then(res => {
+            if(res) {
+              this.connect(res);
+              this.whale = this.whales[this.index];
+            }
+          });
         }).catch(() => {
           alert('다시 시도해주세요')
         })
