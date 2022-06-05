@@ -7,13 +7,9 @@
       배경 등 배 눈 색상을 선택하거나 랜덤 조합이 가능합니다.
     </div>
 
-    <div class="mb-4">
+    <div class="mb-5">
       선택하신 색상 조합이 이미 존재할 경우 포획할 수 없습니다.<br />
       같은 색 조합의 고래는 오직 하나만 존재합니다.
-    </div>
-
-    <div class="mb-5">
-      고래는 천 마리만 존재하며, 6월 말까지만 포획이 가능합니다.
     </div>
 
     <ConnectWallet v-if="!isKluApproval" />
