@@ -22,10 +22,10 @@ export default {
         alert('KAIKAS 확장프로그램 설치가 필요합니다');
         return;
       }
-      // if(klaytn.networkVersion !== 8217) {
-      //   alert('Cypress Main Network로 변경해주세요')
-      //   return;
-      // }
+      if(klaytn.networkVersion !== 8217) {
+        alert('Cypress Main Network로 변경해주세요')
+        return;
+      }
 
       await klaytn.enable();
       
