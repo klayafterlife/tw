@@ -1,4 +1,4 @@
-export const KLU_ADDR = '0x5F034c71eE5Cc0B4e7688AF8a2B55C32b0EfDE00';
+export const KLU_ADDR = '0x75dcAA3eb2403c7725Cc8e5E38f6949eBaB28aCC';
 
 export const KLU_ABI = [
 	{
