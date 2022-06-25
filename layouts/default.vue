@@ -1,8 +1,10 @@
 <template>
-  <div id="container">
+  <div>
     <nav-header />
 
-    <Nuxt />
+    <div id="container">
+      <Nuxt />
+    </div>
   </div>
 </template>
 
@@ -33,25 +35,25 @@ export default {
 }
 
 body {
-  overflow-x: hidden;
-}
-
-#container {
   font-family: 'neo';
-  width: 100vw;
-  min-height: 100vh;
-  background-image: url('/img/water.png');
   color: white;
-  display: flex;
-  justify-content: center;
   text-align: center;
   font-size: 1.2rem;
   text-shadow: 2px 2px 2px black;
+  overflow-x: hidden;
+  background-image: url('/img/water.png');
+  width: 100vw;
+  min-height: 100vh;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
 }
 
 .container {
-  margin-top: 20vh;
-  margin-bottom: 20vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
   margin-left: 1rem;
   margin-right: 1rem;
   border: 0.3rem solid white;
