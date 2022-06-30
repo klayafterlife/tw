@@ -22,6 +22,11 @@
         </a>
       </li>
       <li>
+        <a href="https://pala.world/square/project/2089CFC532195E9568608fD0E8aD7Ab5e4cfDc91" target="_blank">
+          <img id="pala" src="/img/pala.png" alt="pala">
+        </a>
+      </li>
+      <li>
         <a href="https://discord.gg/RtXGG5jxuu" target="_blank">
           <img src="/img/discord.png" alt="discord">
         </a>
@@ -156,5 +161,9 @@ a {
   .navbar__sns.active {
     display: flex;
   }
+}
+
+#pala {
+  border-radius: 70%;
 }
 </style>
